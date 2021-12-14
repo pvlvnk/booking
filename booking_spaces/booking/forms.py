@@ -5,8 +5,7 @@ from datetime import datetime as dt
 
 class ReservingForm(forms.ModelForm):
     reserving_dates = forms.ModelMultipleChoiceField(
-        queryset=Schedule.objects.filter(
-            is_reserved=False).filter(reserving_date__gte=dt.today()),
+        queryset=Schedule.objects.filter(reserving_date__gte=dt.today()),
         widget=forms.CheckboxSelectMultiple(),
     )
 
@@ -33,11 +32,11 @@ class CreationSchedule(forms.ModelForm):
 
 
 class DeletionSchedule(forms.ModelForm):
-    reserving_dates = forms.ModelMultipleChoiceField(
+    deleting_dates = forms.ModelMultipleChoiceField(
         queryset=Schedule.objects.all(),
         widget=forms.CheckboxSelectMultiple(),
     )
 
     class Meta:
         model = Schedule
-        fields = ('reserving_dates',)
+        fields = ('deleting_dates',)

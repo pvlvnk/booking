@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 from booking.forms import EditReservingForm, ReservingForm, CreationSchedule, DeletionSchedule
 from booking.models import ParkingSpace, Schedule
 from booking.decorators import manager_or_admin_only
+from datetime import datetime as dt
 
 
 def index(request):
@@ -22,7 +23,7 @@ def space_reserving(request, slug):
     current_space = get_object_or_404(ParkingSpace, slug=slug)
     form = ReservingForm()
     form.fields['reserving_dates'].queryset = Schedule.objects.filter(
-        space=current_space)
+        space=current_space, is_reserved=False)
     context = {
         'form': form,
         'space': get_object_or_404(ParkingSpace, slug=slug),
@@ -71,7 +72,7 @@ def reserve_edit(request, slug, username):
             reserving_date.is_reserved = False
             reserving_date.booking_user = None
             reserving_date.save(update_fields=['is_reserved', 'booking_user'])
-    return render(request, 'booking/reserving.html', context)
+    return redirect('booking:index')
 
 
 @manager_or_admin_only
@@ -90,6 +91,11 @@ def CreateSchedule(request):
     if not form.is_valid():
         return render(request, 'booking/create_schedule.html', context)
     form.save()
+    context = {
+        'form': form,
+        'create_schedule': True,
+        'alert_flag': True,
+    }
     return render(request, 'booking/create_schedule.html', context)
 
 
@@ -108,7 +114,15 @@ def DeleteSchedule(request):
     )
     if not form.is_valid():
         return render(request, 'booking/delete_schedule.html', context)
-    form.delete()
+    objects = form.cleaned_data['deleting_dates'].values()
+    for object in objects:
+        reserving_date = get_object_or_404(Schedule, id=object['id'])
+        reserving_date.delete()
+    context = {
+        'form': form,
+        'delete_schedule': True,
+        'alert_flag': True,
+    }
     return render(request, 'booking/delete_schedule.html', context)
 
 

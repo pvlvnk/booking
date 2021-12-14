@@ -38,6 +38,9 @@
                 <button type="submit" class="btn btn-primary">
                   Delete
                 </button>
+                {% if alert_flag %}
+                  <script>alert("Dates successfully deleted")</script>  
+                {% endif %}
               </div>
             </form>
           </div>

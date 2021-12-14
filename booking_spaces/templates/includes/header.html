@@ -20,7 +20,7 @@
           {% if request.resolver_match.view_name  == 'booking:index' %}
             active
           {% endif %}"
-          href="{% url 'booking:index' %}">Choice space</a>
+          href="{% url 'booking:index' %}">Choose space</a>
         </li>
         {% if user.role == 'admin' or user.role == 'moderator' %}
         <li class="nav-item"> 

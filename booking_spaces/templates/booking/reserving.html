@@ -38,6 +38,9 @@
                 <button type="submit" class="btn btn-primary">
                   {% if is_edit %}Edit{% else %}Submit{% endif%}
                 </button>
+                {% if alert_flag_edit %}
+                  <script> alert("Reservation has been successfully deleted")</script>  
+                {% endif %}
               </div>
             </form>
           </div>
