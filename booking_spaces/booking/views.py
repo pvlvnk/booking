@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.base import TemplateView
 
-from booking.forms import EditReservingForm, ReservingForm, CreationSchedule
+from booking.forms import EditReservingForm, ReservingForm, CreationSchedule, DeletionSchedule
 from booking.models import ParkingSpace, Schedule
 from booking.decorators import manager_or_admin_only
 
@@ -19,7 +19,10 @@ def index(request):
 
 @login_required
 def space_reserving(request, slug):
+    current_space = get_object_or_404(ParkingSpace, slug=slug)
     form = ReservingForm()
+    form.fields['reserving_dates'].queryset = Schedule.objects.filter(
+        space=current_space)
     context = {
         'form': form,
         'space': get_object_or_404(ParkingSpace, slug=slug),
@@ -43,9 +46,10 @@ def space_reserving(request, slug):
 
 @login_required
 def reserve_edit(request, slug, username):
+    current_space = get_object_or_404(ParkingSpace, slug=slug)
     form = EditReservingForm()
     form.fields['reserving_dates'].queryset = Schedule.objects.filter(
-        booking_user=request.user)
+        space=current_space).filter(booking_user=request.user)
     context = {
         'form': form,
         'is_edit': True,
@@ -75,10 +79,11 @@ def CreateSchedule(request):
     form = CreationSchedule()
     context = {
         'form': form,
+        'create_schedule': True,
     }
     if request.method != 'POST':
         return render(request, 'booking/create_schedule.html', context)
-    form = ReservingForm(
+    form = CreationSchedule(
         request.POST or None,
         files=request.FILES or None
     )
@@ -88,6 +93,23 @@ def CreateSchedule(request):
     return render(request, 'booking/create_schedule.html', context)
 
 
+@manager_or_admin_only
+def DeleteSchedule(request):
+    form = DeletionSchedule()
+    context = {
+        'form': form,
+        'delete_schedule': True,
+    }
+    if request.method != 'POST':
+        return render(request, 'booking/delete_schedule.html', context)
+    form = DeletionSchedule(
+        request.POST or None,
+        files=request.FILES or None
+    )
+    if not form.is_valid():
+        return render(request, 'booking/delete_schedule.html', context)
+    form.delete()
+    return render(request, 'booking/delete_schedule.html', context)
 
 
 class InfoView(TemplateView):

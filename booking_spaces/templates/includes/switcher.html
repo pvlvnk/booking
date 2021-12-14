@@ -1,0 +1,20 @@
+  <div class="row my-3">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if create_schedule %}active{% endif %}"
+          href="{% url 'booking:create_schedule' %}"
+        >
+          Create date for reserve
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if delete_schedule %}active{% endif %}"
+          href="{% url 'booking:delete_schedule' %}"
+        >
+          Delete date for reserve
+        </a>
+      </li>
+    </ul>
+  </div>

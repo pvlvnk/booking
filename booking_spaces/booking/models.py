@@ -43,4 +43,4 @@ class Schedule(models.Model):
         )
 
     def __str__(self):
-        return f'{self.reserving_date}'
+        return f'{self.space.title} - {self.reserving_date}'

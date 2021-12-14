@@ -2,17 +2,17 @@
 {% load static %}
 {% load user_filters %}
 {% block title%}
-  <title> {% if is_edit %}Edit reserve{% else %}New reserve{% endif%}: {{ space.title }} </title>
+  <title> Delete date for reserve </title>
 {% endblock title %}
 {% block content %}
   <div class="container py-5">
-    <h2> {% if is_edit %}Edit reserve{% else %}New reserve{% endif%}: {{ space.title }} </h2>
-    <hr>
+    <h2> Delete date for reserve </h2>
+    {% include 'includes/switcher.html' %}
     <div class="row justify-content-center">
       <div class="col-md-8 p-5">
         <div class="card">
           <div class="card-header">
-            {% if is_edit %}Select dates{% else %}Please fill out the form{% endif%}: {{ space.title }}
+            Select dates
           </div>
           <div class="card-body">        
             {% if form.errors %}
@@ -36,7 +36,7 @@
               </div>
               <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">
-                  {% if is_edit %}Edit{% else %}Submit{% endif%}
+                  Delete
                 </button>
               </div>
             </form>

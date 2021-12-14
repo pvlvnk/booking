@@ -22,6 +22,15 @@
           {% endif %}"
           href="{% url 'booking:index' %}">Choice space</a>
         </li>
+        {% if user.role == 'admin' or user.role == 'moderator' %}
+        <li class="nav-item"> 
+          <a class="nav-link
+          {% if request.resolver_match.view_name  == 'booking:create_schedule' or request.resolver_match.view_name  == 'booking:delete_schedule' %}
+            active
+          {% endif %}"
+          href="{% url 'booking:create_schedule' %}">Create/delete Date</a>
+        </li>
+        {% endif %}
         <li class="nav-item"> 
           <a class="nav-link link-light
           {% if request.resolver_match.view_name  == 'users:logout' %}
