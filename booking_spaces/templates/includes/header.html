@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="navbar navbar-light" style="background-color: lightskyblue">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'booking:index' %}">
+      <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      Fregat office center
+    </a>
+    {% with request.resolver_match.view_name as view_name %}
+    <ul class="nav nav-pills">
+      <li class="nav-item"> 
+        <a class="nav-link
+        {% if request.resolver_match.view_name  == 'booking:info' %}
+          active
+        {% endif %}"
+        href="{% url 'booking:info' %}">about project</a>
+      </li>
+      {% if user.is_authenticated %}
+        <li class="nav-item"> 
+          <a class="nav-link
+          {% if request.resolver_match.view_name  == 'booking:index' %}
+            active
+          {% endif %}"
+          href="{% url 'booking:index' %}">Choice space</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+          {% if request.resolver_match.view_name  == 'users:logout' %}
+            active
+          {% endif %}"
+          href="{% url 'users:logout' %}">Log out</a>
+        </li>
+        <li class="nav-item">
+          User: {{ user.username }}
+        <li>
+      {% else %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+          {% if request.resolver_match.view_name  == 'users:login' %}
+            active
+          {% endif %}"
+          href="{% url 'users:login' %}">Log in</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+          {% if request.resolver_match.view_name  == 'users:signup' %}
+            active
+          {% endif %}"
+          href="{% url 'users:signup' %}">Sign Up</a>
+        </li>
+      {% endif %}
+    </ul>
+    {% endwith %}
+  </div>
+</nav>      
