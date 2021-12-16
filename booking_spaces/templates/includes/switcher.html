@@ -1,8 +1,9 @@
   <div class="row my-3">
     <ul class="nav nav-tabs">
       <li class="nav-item">
+        {% if create_schedule or delete_schedule %}
         <a 
-          class="nav-link {% if create_schedule %}active{% endif %}"
+          class="nav-link {% if create_schedule  %}active{% endif %}"
           href="{% url 'booking:create_schedule' %}"
         >
           Create date for reserve
@@ -15,6 +16,23 @@
         >
           Delete date for reserve
         </a>
+        {% endif %}
+        {% if create_space or delete_space %}
+        <a 
+        class="nav-link {% if create_space  %}active{% endif %}"
+        href="{% url 'booking:create_space' %}"
+        >
+        Create space
+        </a>
+      </li>
+      <li class="nav-item">
+      <a 
+        class="nav-link {% if delete_space %}active{% endif %}"
+        href="{% url 'booking:delete_space' %}"
+      >
+        Delete space
+      </a>
+      {% endif %}
       </li>
     </ul>
   </div>

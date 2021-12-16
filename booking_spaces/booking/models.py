@@ -13,6 +13,16 @@ class ParkingSpace(models.Model):
         unique=True,
         verbose_name='slug'
     )
+    image = models.ImageField(
+        'Image',
+        upload_to='spaces/',
+        blank=True
+    )
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'Space'
+        verbose_name_plural = 'Spaces'
 
     def __str__(self):
         return self.title

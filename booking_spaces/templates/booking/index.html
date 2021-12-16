@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load thumbnail %}
 {% block title%}
   <title> Fregat office center </title>
 {% endblock title %}
@@ -8,10 +9,13 @@
   <br>
   <h1> Choose a place to book </h1>
   <br>
-  {% for space in spaces %}
+  {% for space in page_obj %}
       <li>
         Space: {{ space.title }} 
       </li>
+      {% thumbnail space.image "960x339" crop="center" upscale=True as im %}
+        <img class="card-img my-2" src="{{ im.url }}">
+      {% endthumbnail %}
       <li>
         <a class="btn btn-primary" href="{% url 'booking:space_reserving' space.slug %}">
           Reserve this space
@@ -24,5 +28,6 @@
       </li>
     {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
+  {% include 'includes/paginator.html' %}
 </div>
 {% endblock content %}

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
+    'sorl.thumbnail',
     'booking.apps.BookingConfig',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
@@ -170,3 +171,10 @@ SIMPLE_JWT = {
 ADMIN_ROLE = 'admin'
 MANAGER_ROLE = 'manager'
 EMPLOYER_ROLE = 'employer'
+
+AMOUNT_POSTS = 10
+
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

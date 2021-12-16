@@ -6,4 +6,8 @@ django-filter == 21.1
 requests == 2.26.0
 PyJWT == 2.1.0
 python-dotenv == 0.19.2
-pytz 
+pytz == 2021.3
+six == 1.16.0
+sorl-thumbnail == 12.7.0
+mixer == 7.1.2
+Pillow == 8.4.0
