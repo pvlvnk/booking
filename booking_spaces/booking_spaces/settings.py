@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from datetime import timedelta
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -27,9 +28,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'www.pvlvnk.pythonanywhere.com',
+    'pvlvnk.pythonanywhere.com',
+]
 
 AUTH_USER_MODEL = 'users.User'
 # Application definition
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'djoser',
     'booking.apps.BookingConfig',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
@@ -135,10 +141,6 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'booking:index'
 
 
-ADMIN_ROLE = 'admin'
-MANAGER_ROLE = 'manager'
-EMPLOYER_ROLE = 'employer'
-
 DEFAULT_AUTO_FIEL = 'django.db.models.AutoField'
 
 CACHES = {
@@ -149,10 +151,21 @@ CACHES = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
+SIMPLE_JWT = {
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+   'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+ADMIN_ROLE = 'admin'
+MANAGER_ROLE = 'manager'
+EMPLOYER_ROLE = 'employer'

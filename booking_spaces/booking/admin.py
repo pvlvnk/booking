@@ -1,6 +1,5 @@
+from booking.models import ParkingSpace, Schedule
 from django.contrib import admin
-
-from booking.models import Schedule, ParkingSpace
 
 
 class ParkingSpaceAdmin(admin.ModelAdmin):

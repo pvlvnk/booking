@@ -1,11 +1,10 @@
+from booking.decorators import manager_or_admin_only
+from booking.forms import (CreationSchedule, DeletionSchedule,
+                           EditReservingForm, ReservingForm)
+from booking.models import ParkingSpace, Schedule
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.base import TemplateView
-
-from booking.forms import EditReservingForm, ReservingForm, CreationSchedule, DeletionSchedule
-from booking.models import ParkingSpace, Schedule
-from booking.decorators import manager_or_admin_only
-from datetime import datetime as dt
 
 
 def index(request):
