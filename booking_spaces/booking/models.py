@@ -1,3 +1,4 @@
+from booking.validators import date_validator
 from django.db import models
 from django.db.models import constraints
 from users.models import User
@@ -23,9 +24,13 @@ class Schedule(models.Model):
         on_delete=models.CASCADE,
         related_name='shedule',
         verbose_name='space',
-        help_text='choice space'
+        help_text='choose space'
     )
-    reserving_date = models.DateField()
+    reserving_date = models.DateField(
+        validators=[date_validator],
+        verbose_name='date',
+        help_text='format %Y-%m-%d'
+        )
     is_reserved = models.BooleanField(default=False)
     is_past = models.BooleanField(default=False)
     booking_user = models.ForeignKey(
@@ -40,6 +45,7 @@ class Schedule(models.Model):
             constraints.UniqueConstraint(
                 fields=('space', 'reserving_date'), name='unique_reserve'),
         )
+
 
     def __str__(self):
         return f'{self.space.title} - {self.reserving_date}'

@@ -88,7 +88,7 @@ def CreateSchedule(request):
         files=request.FILES or None
     )
     if not form.is_valid():
-        return render(request, 'booking/create_schedule.html', context)
+        return render(request, 'booking/index.html', context)
     form.save()
     context = {
         'form': form,
