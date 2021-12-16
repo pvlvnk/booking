@@ -13,11 +13,7 @@ class ParkingSpace(models.Model):
         unique=True,
         verbose_name='slug'
     )
-    image = models.ImageField(
-        'Image',
-        upload_to='spaces/',
-        blank=True
-    )
+
 
     class Meta:
         ordering = ('-id',)

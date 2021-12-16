@@ -7,8 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.base import TemplateView
+from django.views.decorators.cache import cache_page
 
-
+@cache_page(20, key_prefix='index_page')
 def index(request):
     spaces = ParkingSpace.objects.all()
     paginator = Paginator(spaces, settings.AMOUNT_POSTS)

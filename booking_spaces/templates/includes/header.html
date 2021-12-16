@@ -14,7 +14,6 @@
         {% endif %}"
         href="{% url 'booking:info' %}">about project</a>
       </li>
-      {% if user.is_authenticated %}
         <li class="nav-item"> 
           <a class="nav-link
           {% if request.resolver_match.view_name  == 'booking:index' %}
@@ -22,7 +21,7 @@
           {% endif %}"
           href="{% url 'booking:index' %}">Choose space</a>
         </li>
-        {% if user.role == 'admin' or user.role == 'manager' %}
+      {% if user.role == 'admin' or user.role == 'manager' %}
         <li class="nav-item"> 
           <a class="nav-link
           {% if request.resolver_match.view_name  == 'booking:create_schedule' or request.resolver_match.view_name  == 'booking:delete_schedule' %}
@@ -30,7 +29,13 @@
           {% endif %}"
           href="{% url 'booking:create_schedule' %}">Create/delete Date</a>
         </li>
-        {% endif %}
+        <li class="nav-item"> 
+          <a class="nav-link
+          {% if request.resolver_match.view_name  == 'booking:create_space' or request.resolver_match.view_name  == 'booking:delete_space' %}
+            active
+          {% endif %}"
+          href="{% url 'booking:create_space' %}">Create/delete space</a>
+        </li>
         <li class="nav-item"> 
           <a class="nav-link link-light
           {% if request.resolver_match.view_name  == 'users:logout' %}

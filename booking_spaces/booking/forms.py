@@ -47,7 +47,7 @@ class DeletionScheduleForm(forms.ModelForm):
 class CreationSpaceForm(forms.ModelForm):
     class Meta:
         model = ParkingSpace
-        fields = ('title', 'slug', 'image')
+        fields = ('title', 'slug',)
 
 
 class DeletionSpaceForm(forms.ModelForm):
