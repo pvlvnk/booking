@@ -7,9 +7,10 @@ class ParkingSpaceAdmin(admin.ModelAdmin):
         'pk',
         'title',
         'slug',
+        'image'
     )
     search_fields = ('title',)
-    list_editable = ('title',)
+    list_editable = ('title', 'slug', 'image')
     empty_value_display = '-empty-'
 
 
